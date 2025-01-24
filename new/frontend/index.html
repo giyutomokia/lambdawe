@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: inline-block;
+        }
+
+        /* Layout Container */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding-top: 50px; /* Space for fixed navbar */
+        }
+
+        /* Left Menu */
+        .left-menu {
+            background-color: #f4f4f4;
+            padding: 10px;
+            width: 250px;
+            transition: width 0.3s;
+        }
+
+        .left-menu.collapsed {
+            width: 0;
+        }
+
+        .left-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .left-menu li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .left-menu li:hover {
+            background-color: #ddd;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            min-height: 300px;
+        }
+
+        /* Right Panel */
+        .right-panel {
+            background-color: #f4f4f4;
+            padding: 10px;
+            width: 300px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 992px) {
+            .left-menu.collapsed {
+                width: 0;
+            }
+
+            .right-panel {
+                width: 200px;
+            }
+        }
+
+        /* Responsive Styles */
+        .shrink {
+            transform: scale(0.9);
+            transform-origin: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="javascript:void(0);" onclick="toggleMenu()">Toggle Menu</a>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div class="container">
+        <div class="left-menu" id="leftMenu">
+            <ul>
+                <li>Menu </li>
+                <li>Setting</li>
+                <li>Contact</li>
+                <li>list</li>
+            </ul>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            <h1>Welcome to the Responsive Webpage</h1>
+            <p>This is the main content area. Resize the window to see the responsiveness.</p>
+        </div>
+
+        <div class="right-panel">
+            <h3>Right Panel</h3>
+            <p>Some additional content here.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Your Company</p>
+    </div>
+
+    <script>
+        // Toggle left menu collapse/expand
+        function toggleMenu() {
+            const menu = document.getElementById('leftMenu');
+            menu.classList.toggle('collapsed');
+        }
+
+        // Resize page based on screen width
+        function resizePage() {
+            const width = window.innerWidth;
+            const mainContent = document.getElementById('mainContent');
+            
+            if (width >= 992 && width <= 1600) {
+                mainContent.classList.add('shrink');
+            } else if (width >= 700 && width < 992) {
+                mainContent.classList.add('shrink');
+            } else if (width >= 600 && width < 700) {
+                mainContent.classList.add('shrink');
+            } else if (width <= 600) {
+                mainContent.classList.add('shrink');
+            } else {
+                mainContent.classList.remove('shrink');
+            }
+        }
+
+        // Initialize on load and on resize
+        window.onload = resizePage;
+        window.onresize = resizePage;
+    </script>
+</body>
+</html>

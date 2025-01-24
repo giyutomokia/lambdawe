@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .user-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .user-list li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #fff;
+        }
+
+        .user-list li:hover {
+            background-color: #0056b3;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: white;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .user {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #e9e9e9;
+        }
+
+        .message strong {
+            color: #007bff;
+        }
+
+        .message p {
+            margin: 0;
+        }
+
+        .chat-form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-form textarea {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .chat-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .chat-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar with list of users -->
+        <div class="sidebar">
+            <h2>Users</h2>
+            <ul class="user-list">
+                {% for user in users %}
+                    <li onclick="location.href='{% url '/chat/' user.id %}'">{{ user.username }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Main content area -->
+        <div class="main-content">
+            <h1>Welcome to Chat Home</h1>
+            <div class="user">Select a user to chat with</div>
+
+            <!-- Chat Messages -->
+            <div id="messages">
+                {% for message in messages %}
+                    <div class="message">
+                        <strong>{{ message.sender.username }}:</strong>
+                        <p>{{ message.content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Message Input Form -->
+            <div class="chat-form">
+                <form method="POST" action="{% url 'send_message' %}">
+                    {% csrf_token %}
+                    <textarea name="message" placeholder="Type your message"></textarea>
+                    <input type="hidden" name="receiver_id" value="{{ other_user.id }}">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

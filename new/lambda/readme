@@ -1,0 +1,52 @@
+Log in to the AWS Management Console: Open the AWS Console here and log in with your credentials.
+
+Create a Lambda Function:
+
+Go to the Lambda service from the AWS Management Console.
+Click on the Create function button.
+Choose Author from Scratch.
+Enter a name for your function (e.g., AddNumbers for the first function or UploadFileToS3 for the second).
+Choose a runtime. For both functions, you should select Python 3.9 or Python 3.x (the runtime you want).
+Select or create an IAM role with permissions to execute the Lambda function. For the second function (UploadFileToS3), make sure the role has permissions to interact with S3 (e.g., AmazonS3FullAccess).
+Set Up the Lambda Code:
+
+In the Lambda function editor, copy the code provided for either the Add Two Numbers function or the Upload File to S3 function.
+Paste the code into the editor and click Deploy to save it.
+2. Set Up a Test Event in Lambda Console
+Once your function is created, you can test it by setting up a test event.
+
+Create Test Event:
+
+In the Lambda function page, click on the Test button at the top right.
+
+In the Configure test event section, enter the input for your function (i.e., the event data).
+
+For the Add Two Numbers function, your test event should look like this:
+
+Example Test Input for Add Two Numbers:
+
+json
+Copy
+Edit
+{
+  "num1": 5,
+  "num2": 10
+}
+Example Test Input for Upload File to S3:
+
+json
+Copy
+Edit
+{
+  "bucket_name": "your-bucket-name",
+  "file_name": "document.pdf",
+  "file_data": "base64_encoded_data_here"
+}
+Run the Test:
+
+Click the Test button to invoke the Lambda function with the test event data.
+Check the output and logs below to see if the function executed successfully.
+3. View Lambda Execution Results
+After running the test, you’ll see the result of the Lambda function execution.
+If the function worked correctly, you should see the success message returned by the function (e.g., the sum of the numbers or a confirmation message that the file was uploaded to S3).
+If there are any issues, error messages will be shown, and you can debug based on the error details.
